@@ -6,6 +6,8 @@ metadata:
   labels:
     purpose: open-match
 spec:
+  imagePullSecrets:
+    - name: regcred
   containers:
     - name: gts-matchfrontend
       image: 408181147136.dkr.ecr.ap-northeast-2.amazonaws.com/sandyfloor/gts/matchfrontend:latest
