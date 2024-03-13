@@ -1,9 +1,10 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: command-demo
+  name: gts-match-cores
+  namespace: open-match
   labels:
-    purpose: demonstrate-command
+    purpose: open-match
 spec:
   containers:
     - name: gts-matchfrontend
