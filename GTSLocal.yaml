@@ -25,3 +25,48 @@ spec:
       command: [ "printenv\n./Director" ]
       args: [ "HOSTNAME", "KUBERNETES_PORT" ]
   restartPolicy: OnFailure
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: gts-matchfrontend-service
+spec:
+  type: NodePort
+  selector:
+    app: gts-matchfrontend
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8100
+      
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: gts-matchfunction-service
+spec:
+  type: NodePort
+  selector:
+    app: gts-matchfunction
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8101
+      
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: gts-matchdirector-service
+spec:
+  type: NodePort
+  selector:
+    app: gts-matchdirector
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8102
