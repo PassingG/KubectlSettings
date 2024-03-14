@@ -1,10 +1,11 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: gts-match-cores
+  name: gts-matchfrontend-cores
   namespace: open-match
   labels:
     purpose: open-match
+    app: gts-matchfrontend
 spec:
   imagePullSecrets:
     - name: regcred
@@ -13,11 +14,43 @@ spec:
     - name: gts-matchfrontend
       image: 408181147136.dkr.ecr.ap-northeast-2.amazonaws.com/sandyfloor/gts/matchfrontend:latest
       command: ["./front-end"]
-      
+  restartPolicy: OnFailure
+  
+---
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: gts-matchfunction-cores
+  namespace: open-match
+  labels:
+    purpose: open-match
+    app: gts-matchfunction
+spec:
+  imagePullSecrets:
+    - name: regcred
+  
+  containers:
     - name: gts-matchfunction
       image: 408181147136.dkr.ecr.ap-northeast-2.amazonaws.com/sandyfloor/gts/matchfunction:latest
       command: [ "./match-function" ]
-      
+  restartPolicy: OnFailure
+
+---
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: gts-matchdirector-cores
+  namespace: open-match
+  labels:
+    purpose: open-match
+    app: gts-matchdirector
+spec:
+  imagePullSecrets:
+    - name: regcred
+  
+  containers:
     - name: gts-matchdirector
       image: 408181147136.dkr.ecr.ap-northeast-2.amazonaws.com/sandyfloor/gts/matchdirector:latest
       command: [ "./Director" ]
