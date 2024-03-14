@@ -12,18 +12,15 @@ spec:
   containers:
     - name: gts-matchfrontend
       image: 408181147136.dkr.ecr.ap-northeast-2.amazonaws.com/sandyfloor/gts/matchfrontend:latest
-      command: ["printenv\n./front-end"]
-      args: ["HOSTNAME", "KUBERNETES_PORT"]
+      command: ["./front-end"]
       
     - name: gts-matchfunction
       image: 408181147136.dkr.ecr.ap-northeast-2.amazonaws.com/sandyfloor/gts/matchfunction:latest
-      command: [ "printenv\n./match-function" ]
-      args: ["HOSTNAME", "KUBERNETES_PORT"]
+      command: [ "./match-function" ]
       
     - name: gts-matchdirector
       image: 408181147136.dkr.ecr.ap-northeast-2.amazonaws.com/sandyfloor/gts/matchdirector:latest
-      command: [ "printenv\n./Director" ]
-      args: [ "HOSTNAME", "KUBERNETES_PORT" ]
+      command: [ "./Director" ]
   restartPolicy: OnFailure
 
 ---
