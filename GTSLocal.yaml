@@ -24,7 +24,7 @@ spec:
       containers:
         - name: gts-restful
           image: 408181147136.dkr.ecr.ap-northeast-2.amazonaws.com/sandyfloor/gts/restful:latest
-          command: ["npm", "run", "start:dev"]
+          command: ["npm", "run", "start:prod"]
 ---
 kind: Service
 apiVersion: v1
@@ -37,7 +37,7 @@ spec:
     app: gts-restful
     component: restful
   ports:
-    - port: 8000
+    - port: 80
       targetPort: 8000
 ---
 
