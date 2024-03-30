@@ -1,0 +1,177 @@
+# Front End Component
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gts-front-end
+  namespace: open-match
+  labels:
+    app: gts-front-end
+    component: frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gts-front-end
+      component: frontend
+  template:
+    metadata:
+      labels:
+        app: gts-front-end
+        component: frontend
+    spec:
+      imagePullSecrets:
+        - name: regcred
+      containers:
+        - name: gts-front-end
+          image: 408181147136.dkr.ecr.ap-northeast-2.amazonaws.com/sandyfloor/gts/matchfrontend:latest
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: gts-front-end
+  namespace: open-match
+spec:
+  type: LoadBalancer
+  selector:
+    app: gts-front-end
+    component: frontend
+  ports:
+    - port: 51504
+      targetPort: 51504
+---
+# Match Function component
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gts-match-function
+  namespace: open-match
+  labels:
+    app: gts-match-function
+    component: matchfunction
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gts-match-function
+      component: matchfunction
+  template:
+    metadata:
+      labels:
+        app: gts-match-function
+        component: matchfunction
+    spec:
+      imagePullSecrets:
+        - name: regcred
+      containers:
+        - name: gts-match-function
+          image: 408181147136.dkr.ecr.ap-northeast-2.amazonaws.com/sandyfloor/gts/matchfunction:latest
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: gts-match-function
+  namespace: open-match
+  labels:
+    app: gts-match-function
+    component: matchfunction
+spec:
+  selector:
+    app: gts-match-function
+    component: matchfunction
+  type: ClusterIP
+  ports:
+    - name: grpc
+      protocol: TCP
+      port: 50502
+      targetPort: 50502
+    - name: http
+      protocol: TCP
+      port: 51502
+      targetPort: 51502
+---
+# Director component
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gts-director
+  namespace: open-match
+  labels:
+    app: gts-director
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gts-director
+  template:
+    metadata:
+      labels:
+        app: gts-director
+    spec:
+      imagePullSecrets:
+        - name: regcred
+      containers:
+        - name: gts-director
+          image: 408181147136.dkr.ecr.ap-northeast-2.amazonaws.com/sandyfloor/gts/matchdirector:latest
+---
+# restful-server
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gts-restful
+  namespace: gts-lobby-server
+  labels:
+    app: gts-restful
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gts-restful
+  template:
+    metadata:
+      labels:
+        app: gts-restful
+    spec:
+      imagePullSecrets:
+        - name: regcred
+      containers:
+        - name: gts-restful
+          image: 408181147136.dkr.ecr.ap-northeast-2.amazonaws.com/sandyfloor/gts/restful:latest
+---
+# restful-service
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-restful-service
+  namespace: ts-lobby-server
+spec:
+  selector:
+    app: gts-restful
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: LoadBalancer
+---
+# socket-server
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gts-socket
+  namespace: gts-lobby-server
+  labels:
+    app: gts-socket
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gts-director
+  template:
+    metadata:
+      labels:
+        app: gts-director
+    spec:
+      imagePullSecrets:
+        - name: regcred
+      containers:
+        - name: gts-director
+          image: 408181147136.dkr.ecr.ap-northeast-2.amazonaws.com/sandyfloor/gts/socket:latest
