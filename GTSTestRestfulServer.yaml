@@ -16,6 +16,8 @@ spec:
       labels:
         app: gts-restful
     spec:
+      imagePullSecrets:
+        - name: regcred
       containers:
         - name: gts-restful
           image: 408181147136.dkr.ecr.ap-northeast-2.amazonaws.com/sandyfloor/gts/restful:test_0.12.1
@@ -53,6 +55,8 @@ spec:
       labels:
         app: gts-director
     spec:
+      imagePullSecrets:
+        - name: regcred
       containers:
         - name: gts-director
           image: 408181147136.dkr.ecr.ap-northeast-2.amazonaws.com/sandyfloor/gts/socket:test_0.12.1
