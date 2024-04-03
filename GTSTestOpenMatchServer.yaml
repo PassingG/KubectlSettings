@@ -19,8 +19,6 @@ spec:
         app: gts-front-end
         component: frontend
     spec:
-      imagePullSecrets:
-        - name: regcred
       containers:
         - name: gts-front-end
           image: 408181147136.dkr.ecr.ap-northeast-2.amazonaws.com/sandyfloor/gts/matchfrontend:latest
@@ -60,8 +58,6 @@ spec:
         app: gts-match-function
         component: matchfunction
     spec:
-      imagePullSecrets:
-        - name: regcred
       containers:
         - name: gts-match-function
           image: 408181147136.dkr.ecr.ap-northeast-2.amazonaws.com/sandyfloor/gts/matchfunction:test_0.12.1
@@ -107,8 +103,6 @@ spec:
       labels:
         app: gts-director
     spec:
-      imagePullSecrets:
-        - name: regcred
       containers:
         - name: gts-director
           image: 408181147136.dkr.ecr.ap-northeast-2.amazonaws.com/sandyfloor/gts/matchdirector:test_0.12.1
