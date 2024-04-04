@@ -58,16 +58,16 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: gts-director
+      app: gts-socket
   template:
     metadata:
       labels:
-        app: gts-director
+        app: gts-socket
     spec:
       imagePullSecrets:
         - name: regcred
       containers:
-        - name: gts-director
+        - name: gts-socket
           image: 408181147136.dkr.ecr.ap-northeast-2.amazonaws.com/sandyfloor/gts/socket:test_0.12.1
           env:
             - name: NODE_ENV
