@@ -23,6 +23,7 @@ spec:
         - name: regcred
       containers:
         - name: gts-front-end
+          imagePullPolicy: Always
           image: 408181147136.dkr.ecr.ap-northeast-2.amazonaws.com/sandyfloor/gts/matchfrontend:latest
 ---
 kind: Service
@@ -64,6 +65,7 @@ spec:
         - name: regcred
       containers:
         - name: gts-match-function
+          imagePullPolicy: Always
           image: 408181147136.dkr.ecr.ap-northeast-2.amazonaws.com/sandyfloor/gts/matchfunction:test_0.12.1
 ---
 kind: Service
@@ -111,4 +113,5 @@ spec:
         - name: regcred
       containers:
         - name: gts-director
+          imagePullPolicy: Always
           image: 408181147136.dkr.ecr.ap-northeast-2.amazonaws.com/sandyfloor/gts/matchdirector:test_0.12.1
