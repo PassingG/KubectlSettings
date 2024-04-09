@@ -27,10 +27,10 @@ spec:
           resources:
             limits:
               cpu: "2"
-              memory: "4Gi"
+              memory: "3Gi"
             requests:
               cpu: "1"
-              memory: "2Gi"
+              memory: "1.5Gi"
           env:
             - name: NODE_ENV
               value: prod
@@ -111,10 +111,10 @@ spec:
           resources:
             limits:
               cpu: "2"
-              memory: "4Gi"
+              memory: "3Gi"
             requests:
               cpu: "1"
-              memory: "2Gi"
+              memory: "1.5Gi"
           env:
             - name: NODE_ENV
               value: prod
