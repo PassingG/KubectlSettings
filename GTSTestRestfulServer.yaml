@@ -22,6 +22,13 @@ spec:
         - name: gts-restful
           image: 408181147136.dkr.ecr.ap-northeast-2.amazonaws.com/sandyfloor/gts/restful:test_0.12.1
           imagePullPolicy: Always
+          resources:
+            limits:
+              cpu: "2"
+              memory: "4Gi"
+            requests:
+              cpu: "1"
+              memory: "2Gi"
           env:
             - name: NODE_ENV
               value: prod
@@ -45,7 +52,33 @@ spec:
     - protocol: TCP
       port: 80
       targetPort: 80
-  type: LoadBalancer
+  type: LoadBalancer  
+---
+# restful AutoScaler
+apiVersion: autoscaling/v2beta2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: restful-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: gts-restful
+  minReplicas: 1
+  maxReplicas: 5
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 70
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: 70
 ---
 # socket-server
 apiVersion: apps/v1
@@ -71,6 +104,13 @@ spec:
         - name: gts-socket
           image: 408181147136.dkr.ecr.ap-northeast-2.amazonaws.com/sandyfloor/gts/socket:test_0.12.1
           imagePullPolicy: Always
+          resources:
+            limits:
+              cpu: "2"
+              memory: "4Gi"
+            requests:
+              cpu: "1"
+              memory: "2Gi"
           env:
             - name: NODE_ENV
               value: prod
@@ -80,3 +120,30 @@ spec:
               value: "6379"
             - name: REDIS_PASSWORD
               value: "20221212!"
+---
+# restful AutoScaler
+apiVersion: autoscaling/v2beta2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: socket-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: gts-socket
+  minReplicas: 1
+  maxReplicas: 5
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 70
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: 70
+---
