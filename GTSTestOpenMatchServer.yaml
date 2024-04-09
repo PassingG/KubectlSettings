@@ -50,7 +50,7 @@ spec:
       targetPort: 51504
 ---
 # front-end AutoScaler
-apiVersion: autoscaling/v2beta2
+apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
   name: gts-front-end-hpa
@@ -136,7 +136,7 @@ spec:
       targetPort: 51502
 ---
 # match-function AutoScaler
-apiVersion: autoscaling/v2beta2
+apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
   name: gts-match-function-hpa
@@ -196,7 +196,7 @@ spec:
               memory: "500Mi"
 ---
 # director AutoScaler
-apiVersion: autoscaling/v2beta2
+apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
   name: gts-director-hpa

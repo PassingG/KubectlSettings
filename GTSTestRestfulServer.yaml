@@ -57,7 +57,7 @@ spec:
   type: LoadBalancer  
 ---
 # restful AutoScaler
-apiVersion: autoscaling/v2beta2
+apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
   name: restful-hpa
@@ -126,7 +126,7 @@ spec:
               value: "20221212!"
 ---
 # restful AutoScaler
-apiVersion: autoscaling/v2beta2
+apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
   name: socket-hpa
