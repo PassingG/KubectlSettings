@@ -76,5 +76,7 @@ spec:
               value: prod
             - name: REDIS_HOST
               value: "gts-redis-master.gts-lobby-server.svc.cluster.local"
+            - name: REDIS_PORT
+              value: "6379"
             - name: REDIS_PASSWORD
               value: "20221212!"
