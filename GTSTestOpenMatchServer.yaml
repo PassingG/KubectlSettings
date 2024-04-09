@@ -21,10 +21,19 @@ spec:
     spec:
       imagePullSecrets:
         - name: regcred
+      nodeSelector:
+        nodePool: restful
       containers:
         - name: gts-front-end
           imagePullPolicy: Always
           image: 408181147136.dkr.ecr.ap-northeast-2.amazonaws.com/sandyfloor/gts/matchfrontend:latest
+          resources:
+            limits:
+              cpu: "2"
+              memory: "2Gi"
+            requests:
+              cpu: "500m"
+              memory: "500Mi"
 ---
 kind: Service
 apiVersion: v1
@@ -39,6 +48,32 @@ spec:
   ports:
     - port: 51504
       targetPort: 51504
+---
+# front-end AutoScaler
+apiVersion: autoscaling/v2beta2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: gts-front-end-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: gts-front-end
+  minReplicas: 1
+  maxReplicas: 5
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 70
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: 70
 ---
 # Match Function component
 apiVersion: apps/v1
@@ -63,10 +98,19 @@ spec:
     spec:
       imagePullSecrets:
         - name: regcred
+      nodeSelector:
+        nodePool: restful
       containers:
         - name: gts-match-function
           imagePullPolicy: Always
           image: 408181147136.dkr.ecr.ap-northeast-2.amazonaws.com/sandyfloor/gts/matchfunction:test_0.12.1
+          resources:
+            limits:
+              cpu: "2"
+              memory: "2Gi"
+            requests:
+              cpu: "500m"
+              memory: "500Mi"
 ---
 kind: Service
 apiVersion: v1
@@ -91,6 +135,32 @@ spec:
       port: 51502
       targetPort: 51502
 ---
+# match-function AutoScaler
+apiVersion: autoscaling/v2beta2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: gts-match-function-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: gts-match-function
+  minReplicas: 1
+  maxReplicas: 5
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 70
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: 70
+---
 # Director component
 apiVersion: apps/v1
 kind: Deployment
@@ -111,7 +181,42 @@ spec:
     spec:
       imagePullSecrets:
         - name: regcred
+      nodeSelector:
+        nodePool: restful
       containers:
         - name: gts-director
           imagePullPolicy: Always
           image: 408181147136.dkr.ecr.ap-northeast-2.amazonaws.com/sandyfloor/gts/matchdirector:test_0.12.1
+          resources:
+            limits:
+              cpu: "2"
+              memory: "2Gi"
+            requests:
+              cpu: "500m"
+              memory: "500Mi"
+---
+# director AutoScaler
+apiVersion: autoscaling/v2beta2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: gts-director-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: gts-director
+  minReplicas: 1
+  maxReplicas: 5
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 70
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: 70
