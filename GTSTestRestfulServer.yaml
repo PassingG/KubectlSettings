@@ -29,7 +29,7 @@ spec:
               cpu: "2"
               memory: "3Gi"
             requests:
-              cpu: "1"
+              cpu: "500m"
               memory: "1.5Gi"
           env:
             - name: NODE_ENV
@@ -118,7 +118,7 @@ spec:
               cpu: "2"
               memory: "3Gi"
             requests:
-              cpu: "1"
+              cpu: "500m"
               memory: "1.5Gi"
           env:
             - name: NODE_ENV
