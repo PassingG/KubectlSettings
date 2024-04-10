@@ -135,9 +135,14 @@ spec:
   selector:
     app: gts-socket
   ports:
-    - protocol: TCP
+    - name: http
+      protocol: TCP
       port: 80
       targetPort: 80
+    - name: socket
+      protocol: TCP
+      port: 9001
+      targetPort: 9001
   type: LoadBalancer
 ---
 # socket AutoScaler
