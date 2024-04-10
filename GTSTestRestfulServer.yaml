@@ -125,7 +125,22 @@ spec:
             - name: REDIS_PASSWORD
               value: "20221212!"
 ---
-# restful AutoScaler
+# restful-service
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-socket-service
+  namespace: gts-lobby-server
+spec:
+  selector:
+    app: gts-socket
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: LoadBalancer
+---
+# socket AutoScaler
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
