@@ -35,7 +35,7 @@ spec:
             - name: NODE_ENV
               value: prod
             - name: REDIS_HOST
-              value: "gts-redis-master.gts-lobby-server.svc.cluster.local"
+              value: "sandyfloor-gts-test.redis.cache.windows.net"
             - name: REDIS_PORT
               value: "6379"
             - name: REDIS_PASSWORD
@@ -119,7 +119,7 @@ spec:
             - name: NODE_ENV
               value: prod
             - name: REDIS_HOST
-              value: "gts-redis-master.gts-lobby-server.svc.cluster.local"
+              value: "sandyfloor-gts-test.redis.cache.windows.net"
             - name: REDIS_PORT
               value: "6379"
             - name: REDIS_PASSWORD
