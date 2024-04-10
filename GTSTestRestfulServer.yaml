@@ -34,10 +34,12 @@ spec:
           env:
             - name: NODE_ENV
               value: prod
-            - name: REDIS_HOST
+            - name: REDIS_PRIVATE_HOST
               value: "sandyfloor-gts-test.privatelink.redis.cache.windows.net"
+            - name: REDIS_PUBLIC_HOST
+              value: "sandyfloor-gts-test.redis.cache.windows.net"
             - name: REDIS_PORT
-              value: "6379"
+              value: "6380"
             - name: REDIS_PASSWORD
               valueFrom:
                 secretKeyRef:
@@ -121,17 +123,17 @@ spec:
           env:
             - name: NODE_ENV
               value: prod
-            - name: REDIS_HOST
+            - name: REDIS_PRIVATE_HOST
               value: "sandyfloor-gts-test.privatelink.redis.cache.windows.net"
+            - name: REDIS_PUBLIC_HOST
+              value: "sandyfloor-gts-test.redis.cache.windows.net"
             - name: REDIS_PORT
-              value: "6379"
+              value: "6380"
             - name: REDIS_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: redis-secret
                   key: redis-password
-            - name: MATCHMAKING_URL
-              value: "gts-front-end.open-match.svc.cluster.local:51504"
 ---
 # restful-service
 apiVersion: v1
