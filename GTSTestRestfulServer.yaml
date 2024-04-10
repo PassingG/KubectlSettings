@@ -125,7 +125,7 @@ spec:
             - name: REDIS_PASSWORD
               value: "20221212!"
             - name: MATCHMAKING_URL
-              value: "gts-front-end.open-match.svc.cluster.local"
+              value: "gts-front-end.open-match.svc.cluster.local:51504"
 ---
 # restful-service
 apiVersion: v1
