@@ -127,7 +127,9 @@ spec:
               value: "sandyfloor-gts-test.privatelink.redis.cache.windows.net"
             - name: REDIS_PUBLIC_HOST
               value: "sandyfloor-gts-test.redis.cache.windows.net"
-            - name: REDIS_PORT
+            - name: REDIS_PRIVATE_PORT
+              value: "6379"
+            - name: REDIS_PUBLIC_PORT
               value: "6380"
             - name: REDIS_PASSWORD
               valueFrom:
