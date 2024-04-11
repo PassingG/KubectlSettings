@@ -131,6 +131,15 @@ spec:
               value: "6379"
             - name: REDIS_PUBLIC_PORT
               value: "6380"
+            - name: MATCHMAKING_URL
+              value: "gts-front-end.gts-lobby-server.svc.cluster.local:51504"
+            - name: LOBBYSERVER_URL
+              value: "my-restful-service.gts-lobby-server.svc.cluster.local"
+            - name: ACCESS_INFOS_SECRETKEY
+              valueFrom:
+                secretKeyRef:
+                  name: lobby-server-secret
+                  key: lobby-server-password
             - name: REDIS_PASSWORD
               valueFrom:
                 secretKeyRef:
