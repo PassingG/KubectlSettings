@@ -11,7 +11,7 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: gts-front-end 
+      app: gts-front-end
       component: frontend
   template:
     metadata:
