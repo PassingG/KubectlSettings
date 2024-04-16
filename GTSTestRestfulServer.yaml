@@ -149,16 +149,6 @@ spec:
                 secretKeyRef:
                   name: redis-secret
                   key: redis-password
-            - name: AZURE_ID
-              valueFrom:
-                secretKeyRef:
-                  name: azure-id-secret
-                  key: azure-id
-            - name: AZURE_PW
-              valueFrom:
-                secretKeyRef:
-                  name: azure-pw-secret
-                  key: azure-pw
 ---
 # restful-service
 apiVersion: v1
