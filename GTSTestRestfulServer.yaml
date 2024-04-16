@@ -135,6 +135,10 @@ spec:
               value: "http://gts-front-end.open-match.svc.cluster.local:51504"
             - name: LOBBYSERVER_URL
               value: "http://my-restful-service.gts-lobby-server.svc.cluster.local"
+            - name: AZURE_RESOURCE_GROUP
+              value: "GTS-Korea-TEST"
+            - name: AZURE_KUBE_NAME
+              value: "GTS-Ingame-Test"
             - name: ACCESS_INFOS_SECRETKEY
               valueFrom:
                 secretKeyRef:
@@ -145,6 +149,16 @@ spec:
                 secretKeyRef:
                   name: redis-secret
                   key: redis-password
+            - name: AZURE_ID
+              valueFrom:
+                secretKeyRef:
+                  name: azure-id-secret
+                  key: azure-id
+            - name: AZURE_PW
+              valueFrom:
+                secretKeyRef:
+                  name: azure-pw-secret
+                  key: azure-pw
 ---
 # restful-service
 apiVersion: v1
