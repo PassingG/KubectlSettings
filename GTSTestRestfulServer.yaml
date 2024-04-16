@@ -113,6 +113,9 @@ spec:
         - name: gts-socket
           image: 408181147136.dkr.ecr.ap-northeast-2.amazonaws.com/sandyfloor/gts/socket:test_0.12.1
           imagePullPolicy: Always
+          volumeMounts:
+            - name: kubeconfig-volume
+              mountPath: "/etc/kubeconfig"
           resources:
             limits:
               cpu: "2"
@@ -149,6 +152,10 @@ spec:
                 secretKeyRef:
                   name: redis-secret
                   key: redis-password
+      volumes:
+        - name: kubeconfig-volume
+          secret:
+            secretName: kubeconfig-secret
 ---
 # restful-service
 apiVersion: v1
