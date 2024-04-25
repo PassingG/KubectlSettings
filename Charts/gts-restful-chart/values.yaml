@@ -8,3 +8,6 @@ socketImage:
 
 serviceAccount:
   create: false
+
+ingress:
+  enabled: false

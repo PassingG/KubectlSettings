@@ -11,3 +11,6 @@ matchDirectorImage:
   
 serviceAccount:
   create: false
+
+ingress:
+  enabled: false
