@@ -1,0 +1,10 @@
+gameVersion: "0.15.0.1"
+
+frontEndImage:
+  repository: "408181147136.dkr.ecr.ap-northeast-2.amazonaws.com/sandyfloor/gts/matchfrontend"
+
+matchFunctionImage:
+  repository: "408181147136.dkr.ecr.ap-northeast-2.amazonaws.com/sandyfloor/gts/matchfunction"
+  
+matchDirectorImage:
+  repository: "408181147136.dkr.ecr.ap-northeast-2.amazonaws.com/sandyfloor/gts/matchdirector"

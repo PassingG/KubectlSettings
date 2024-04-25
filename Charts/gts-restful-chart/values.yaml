@@ -1,0 +1,8 @@
+gameVersion: "0.15.0.1"
+
+restfulImage:
+  repository: "408181147136.dkr.ecr.ap-northeast-2.amazonaws.com/sandyfloor/gts/restful"
+
+socketImage:
+  repository: "408181147136.dkr.ecr.ap-northeast-2.amazonaws.com/sandyfloor/gts/socket"
+    

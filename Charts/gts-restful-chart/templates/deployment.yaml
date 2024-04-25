@@ -1,0 +1,121 @@
+# restful-server
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gts-restful
+  namespace: gts-lobby-server
+  labels:
+    app: gts-restful
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gts-restful
+  template:
+    metadata:
+      labels:
+        app: gts-restful
+    spec:
+      imagePullSecrets:
+        - name: regcred
+      nodeSelector:
+        nodePool: restful
+      containers:
+        - name: gts-restful
+          image: "{{ .Values.restfulImage.repository }}:{{ .Values.gameVersion }}"
+          imagePullPolicy: Always
+          resources:
+            limits:
+              cpu: "2"
+              memory: "3Gi"
+            requests:
+              cpu: "500m"
+              memory: "1.5Gi"
+          env:
+            - name: NODE_ENV
+              value: prod
+            - name: VERSION
+              value: "{{ .Values.gameVersion }}"
+            - name: REDIS_PRIVATE_HOST
+              value: "sandyfloor-gts-test.privatelink.redis.cache.windows.net"
+            - name: REDIS_PUBLIC_HOST
+              value: "sandyfloor-gts-test.redis.cache.windows.net"
+            - name: REDIS_PORT
+              value: "6380"
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: redis-secret
+                  key: redis-password
+---
+# socket-server
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gts-socket
+  namespace: gts-lobby-server
+  labels:
+    app: gts-socket
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gts-socket
+  template:
+    metadata:
+      labels:
+        app: gts-socket
+    spec:
+      imagePullSecrets:
+        - name: regcred
+      nodeSelector:
+        nodePool: restful
+      containers:
+        - name: gts-socket
+          image: "{{ .Values.socketImage.repository }}:{{ .Values.gameVersion }}"
+          imagePullPolicy: Always
+          volumeMounts:
+            - name: kubeconfig-volume
+              mountPath: "/etc/kubeconfig"
+          resources:
+            limits:
+              cpu: "2"
+              memory: "3Gi"
+            requests:
+              cpu: "500m"
+              memory: "1.5Gi"
+          env:
+            - name: NODE_ENV
+              value: prod
+            - name: VERSION
+              value: "{{ .Values.gameVersion }}"
+            - name: REDIS_PRIVATE_HOST
+              value: "sandyfloor-gts-test.privatelink.redis.cache.windows.net"
+            - name: REDIS_PUBLIC_HOST
+              value: "sandyfloor-gts-test.redis.cache.windows.net"
+            - name: REDIS_PRIVATE_PORT
+              value: "6379"
+            - name: REDIS_PUBLIC_PORT
+              value: "6380"
+            - name: MATCHMAKING_URL
+              value: "http://gts-front-end.open-match.svc.cluster.local:51504"
+            - name: LOBBYSERVER_URL
+              value: "http://my-restful-service.gts-lobby-server.svc.cluster.local"
+            - name: AZURE_RESOURCE_GROUP
+              value: "GTS-Korea-TEST"
+            - name: AZURE_KUBE_NAME
+              value: "GTS-Ingame-Test"
+            - name: ACCESS_INFOS_SECRETKEY
+              valueFrom:
+                secretKeyRef:
+                  name: lobby-server-secret
+                  key: lobby-server-password
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: redis-secret
+                  key: redis-password
+      volumes:
+        - name: kubeconfig-volume
+          secret:
+            secretName: kubeconfig-secret

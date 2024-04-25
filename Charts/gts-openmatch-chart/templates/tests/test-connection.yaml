@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "gts-openmatch-chart.fullname" . }}-test-connection"
+  labels:
+    {{- include "gts-openmatch-chart.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['{{ include "gts-openmatch-chart.fullname" . }}:{{ .Values.service.port }}']
+  restartPolicy: Never

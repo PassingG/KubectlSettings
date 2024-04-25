@@ -1,0 +1,34 @@
+# restful-service
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-restful-service
+  namespace: gts-lobby-server
+spec:
+  selector:
+    app: gts-restful
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: LoadBalancer  
+---
+# socket-service
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-socket-service
+  namespace: gts-lobby-server
+spec:
+  selector:
+    app: gts-socket
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 80
+    - name: socket
+      protocol: TCP
+      port: 9001
+      targetPort: 9001
+  type: LoadBalancer
