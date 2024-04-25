@@ -1,15 +1,27 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: "{{ include "gts-openmatch-chart.fullname" . }}-test-connection"
-  labels:
-    {{- include "gts-openmatch-chart.labels" . | nindent 4 }}
+  name: "{{ .Release.Name }}-frontend-connection-test"
   annotations:
     "helm.sh/hook": test
 spec:
   containers:
-    - name: wget
+    - name: wget-frontend
       image: busybox
       command: ['wget']
-      args: ['{{ include "gts-openmatch-chart.fullname" . }}:{{ .Values.service.port }}']
+      args: ['gts-front-end.open-match.svc.cluster.local:51504']
+  restartPolicy: Never
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ .Release.Name }}-matchfunction-connection-test"
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget-matchfunction
+      image: busybox
+      command: ['wget']
+      args: ['gts-match-function.open-match.svc.cluster.local:50502']
   restartPolicy: Never

@@ -1,15 +1,27 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: "{{ include "gts-restful-chart.fullname" . }}-test-connection"
-  labels:
-    {{- include "gts-restful-chart.labels" . | nindent 4 }}
+  name: "{{ .Release.Name }}-restful-connection-test"
   annotations:
     "helm.sh/hook": test
 spec:
   containers:
-    - name: wget
+    - name: wget-restful
       image: busybox
       command: ['wget']
-      args: ['{{ include "gts-restful-chart.fullname" . }}:{{ .Values.service.port }}']
+      args: ['my-restful-service.gts-lobby-server.svc.cluster.local']
+  restartPolicy: Never
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ .Release.Name }}-socket-connection-test"
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: netcat-socket
+      image: appropriate/nc
+      command: ['nc']
+      args: ['-z', 'my-socket-service.gts-lobby-server.svc.cluster.local', '9001']
   restartPolicy: Never
