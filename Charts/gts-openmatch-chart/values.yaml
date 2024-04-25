@@ -8,3 +8,6 @@ matchFunctionImage:
   
 matchDirectorImage:
   repository: "408181147136.dkr.ecr.ap-northeast-2.amazonaws.com/sandyfloor/gts/matchdirector"
+  
+serviceAccount:
+  create: false
