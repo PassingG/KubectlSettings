@@ -29,8 +29,7 @@ spec:
           image: 408181147136.dkr.ecr.ap-northeast-2.amazonaws.com/sandyfloor/gts/matchfrontend:latest
           resources:
             limits:
-              cpu: "2"
-              memory: "2Gi"
+              memory: "500Mi"
             requests:
               cpu: "500m"
               memory: "500Mi"
@@ -106,8 +105,7 @@ spec:
           image: 408181147136.dkr.ecr.ap-northeast-2.amazonaws.com/sandyfloor/gts/matchfunction:test_0.12.1
           resources:
             limits:
-              cpu: "2"
-              memory: "2Gi"
+              memory: "500Mi"
             requests:
               cpu: "500m"
               memory: "500Mi"
@@ -189,8 +187,7 @@ spec:
           image: 408181147136.dkr.ecr.ap-northeast-2.amazonaws.com/sandyfloor/gts/matchdirector:test_0.12.1
           resources:
             limits:
-              cpu: "2"
-              memory: "2Gi"
+              memory: "500Mi"
             requests:
               cpu: "500m"
               memory: "500Mi"
