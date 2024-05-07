@@ -6,6 +6,12 @@ restfulImage:
 socketImage:
   repository: "408181147136.dkr.ecr.ap-northeast-2.amazonaws.com/sandyfloor/gts/socket"
 
+redisInfo:
+  redisPrivateHost: "sandyfloor-gts-test.privatelink.redis.cache.windows.net"
+  redisPublicHost: "sandyfloor-gts-test.redis.cache.windows.net"
+  redisPrivatePort: "6379"
+  redisPublicPort: "6380"
+
 serviceAccount:
   create: false
 

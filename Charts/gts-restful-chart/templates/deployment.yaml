@@ -37,11 +37,11 @@ spec:
             - name: VERSION
               value: "{{ .Values.gameVersion }}"
             - name: REDIS_PRIVATE_HOST
-              value: "sandyfloor-gts-test.privatelink.redis.cache.windows.net"
+              value: "{{ .Values.redisInfo.redisPrivateHost }}"
             - name: REDIS_PUBLIC_HOST
-              value: "sandyfloor-gts-test.redis.cache.windows.net"
+              value: "{{ .Values.redisInfo.redisPublicHost }}"
             - name: REDIS_PORT
-              value: "6380"
+              value: "{{ .Values.redisInfo.redisPublicPort }}"
             - name: REDIS_PASSWORD
               valueFrom:
                 secretKeyRef:
@@ -90,13 +90,13 @@ spec:
             - name: VERSION
               value: "{{ .Values.gameVersion }}"
             - name: REDIS_PRIVATE_HOST
-              value: "sandyfloor-gts-test.privatelink.redis.cache.windows.net"
+              value: "{{ .Values.redisInfo.redisPrivateHost }}"
             - name: REDIS_PUBLIC_HOST
-              value: "sandyfloor-gts-test.redis.cache.windows.net"
+              value: "{{ .Values.redisInfo.redisPublicHost }}"
             - name: REDIS_PRIVATE_PORT
-              value: "6379"
+              value: "{{ .Values.redisInfo.redisPrivatePort }}"
             - name: REDIS_PUBLIC_PORT
-              value: "6380"
+              value: "{{ .Values.redisInfo.redisPublicPort }}"
             - name: MATCHMAKING_URL
               value: "http://gts-front-end.open-match.svc.cluster.local:51504"
             - name: LOBBYSERVER_URL
