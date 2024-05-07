@@ -29,8 +29,7 @@ spec:
           image: "{{ .Values.frontEndImage.repository }}:{{ .Values.gameVersion }}"
           resources:
             limits:
-              cpu: "2"
-              memory: "2Gi"
+              memory: "500Mi"
             requests:
               cpu: "500m"
               memory: "500Mi"
@@ -66,8 +65,7 @@ spec:
           image: "{{ .Values.matchFunctionImage.repository }}:{{ .Values.gameVersion }}"
           resources:
             limits:
-              cpu: "2"
-              memory: "2Gi"
+              memory: "500Mi"
             requests:
               cpu: "500m"
               memory: "500Mi"
@@ -100,8 +98,7 @@ spec:
           image: "{{ .Values.matchDirectorImage.repository }}:{{ .Values.gameVersion }}"
           resources:
             limits:
-              cpu: "2"
-              memory: "2Gi"
+              memory: "500Mi"
             requests:
               cpu: "500m"
               memory: "500Mi"
