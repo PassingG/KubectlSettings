@@ -14,7 +14,7 @@ redisInfo:
 
 azureInfo:
   resourceGroup: "GTS-Korea-Test"
-  kubeName: "GTS-Test"
+  kubeName: "GTS-TestServer-Ingame"
 
 serviceAccount:
   create: false
