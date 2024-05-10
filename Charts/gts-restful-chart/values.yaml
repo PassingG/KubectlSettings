@@ -12,6 +12,10 @@ redisInfo:
   redisPrivatePort: "6379"
   redisPublicPort: "6380"
 
+azureInfo:
+  resourceGroup: "GTS-Korea-Test"
+  kubeName: "GTS-Test"
+
 serviceAccount:
   create: false
 

@@ -100,9 +100,9 @@ spec:
             - name: LOBBYSERVER_URL
               value: "http://my-restful-service.gts-lobby-server.svc.cluster.local"
             - name: AZURE_RESOURCE_GROUP
-              value: "GTS-Korea-TEST"
+              value: "{{ .Values.azureInfo.resourceGroup }}"
             - name: AZURE_KUBE_NAME
-              value: "GTS-Ingame-Test"
+              value: "{{ .Values.azureInfo.kubeName }}"
             - name: ACCESS_INFOS_SECRETKEY
               valueFrom:
                 secretKeyRef:
