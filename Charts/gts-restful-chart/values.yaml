@@ -9,7 +9,7 @@ socketImage:
 redisInfo:
   redisPrivateHost: "sandyfloor-gts-test.privatelink.redis.cache.windows.net"
   redisPublicHost: "sandyfloor-gts-test.redis.cache.windows.net"
-  redisPrivatePort: "6379"
+  redisPrivatePort: "6380"
   redisPublicPort: "6380"
 
 azureInfo:
