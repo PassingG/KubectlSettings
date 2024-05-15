@@ -86,7 +86,9 @@ spec:
             - name: NODE_ENV
               value: prod
             - name: VERSION
-              value: "{{ .Values.gameVersion }}"
+              value: "{{ .Values.gameVersion }}"           
+            - name: DEPLOYMENT_LIFETIME
+              value: "{{ .Values.deploymentLifeTime }}"
             - name: REDIS_PRIVATE_HOST
               value: "{{ .Values.redisInfo.redisPrivateHost }}"
             - name: REDIS_PUBLIC_HOST
