@@ -36,6 +36,11 @@ spec:
             requests:
               cpu: "500m"
               memory: "500Mi"
+          env:
+            - name: LOBBY_SERVER_HOST
+              value: "{{ .Values.lobbyServer.host }}"
+            - name: LOBBY_SERVER_PORT
+              value: "{{ .Values.lobbyServer.port }}"
 ---
 # Match Function component
 apiVersion: apps/v1
@@ -75,6 +80,11 @@ spec:
             requests:
               cpu: "500m"
               memory: "500Mi"
+          env:
+            - name: LOBBY_SERVER_HOST
+              value: "{{ .Values.lobbyServer.host }}"
+            - name: LOBBY_SERVER_PORT
+              value: "{{ .Values.lobbyServer.port }}"
 ---
 # Director component
 apiVersion: apps/v1
@@ -111,3 +121,8 @@ spec:
             requests:
               cpu: "500m"
               memory: "500Mi"
+          env:
+            - name: LOBBY_SERVER_HOST
+              value: "{{ .Values.lobbyServer.host }}"
+            - name: LOBBY_SERVER_PORT
+              value: "{{ .Values.lobbyServer.port }}"
