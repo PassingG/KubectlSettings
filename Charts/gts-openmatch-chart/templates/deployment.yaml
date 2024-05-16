@@ -24,6 +24,7 @@ spec:
       {{- if .Values.nodeSelector.enabled }}
       nodeSelector:
         nodePool: restful
+      {{- end }}
       containers:
         - name: gts-front-end
           imagePullPolicy: Always
@@ -61,6 +62,7 @@ spec:
       {{- if .Values.nodeSelector.enabled }}
       nodeSelector:
         nodePool: restful
+      {{- end }}
       containers:
         - name: gts-match-function
           imagePullPolicy: Always
@@ -95,6 +97,7 @@ spec:
       {{- if .Values.nodeSelector.enabled }}
       nodeSelector:
         nodePool: restful
+      {{- end }}
       containers:
         - name: gts-director
           imagePullPolicy: Always
