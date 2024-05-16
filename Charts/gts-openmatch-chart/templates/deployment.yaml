@@ -21,6 +21,7 @@ spec:
     spec:
       imagePullSecrets:
         - name: regcred
+      {{- if .Values.nodeSelector.enabled }}
       nodeSelector:
         nodePool: restful
       containers:
@@ -57,6 +58,7 @@ spec:
     spec:
       imagePullSecrets:
         - name: regcred
+      {{- if .Values.nodeSelector.enabled }}
       nodeSelector:
         nodePool: restful
       containers:
@@ -90,6 +92,7 @@ spec:
     spec:
       imagePullSecrets:
         - name: regcred
+      {{- if .Values.nodeSelector.enabled }}
       nodeSelector:
         nodePool: restful
       containers:

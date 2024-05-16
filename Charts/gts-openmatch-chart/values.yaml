@@ -14,3 +14,6 @@ serviceAccount:
 
 ingress:
   enabled: false
+  
+nodeSelector:
+  enabled: true
