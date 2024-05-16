@@ -22,8 +22,9 @@ spec:
       imagePullSecrets:
         - name: regcred
       {{- if .Values.nodeSelector.enabled }}
-      nodeSelector:
-        nodePool: restful
+        {{- range $key, $value := .Values.nodeSelector.labels }}
+        {{ $key }}: {{ $value }}
+        {{- end }}
       {{- end }}
       containers:
         - name: gts-front-end
@@ -60,8 +61,9 @@ spec:
       imagePullSecrets:
         - name: regcred
       {{- if .Values.nodeSelector.enabled }}
-      nodeSelector:
-        nodePool: restful
+        {{- range $key, $value := .Values.nodeSelector.labels }}
+        {{ $key }}: {{ $value }}
+        {{- end }}
       {{- end }}
       containers:
         - name: gts-match-function
@@ -95,8 +97,9 @@ spec:
       imagePullSecrets:
         - name: regcred
       {{- if .Values.nodeSelector.enabled }}
-      nodeSelector:
-        nodePool: restful
+        {{- range $key, $value := .Values.nodeSelector.labels }}
+        {{ $key }}: {{ $value }}
+        {{- end }}
       {{- end }}
       containers:
         - name: gts-director

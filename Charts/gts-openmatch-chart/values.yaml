@@ -17,3 +17,5 @@ ingress:
   
 nodeSelector:
   enabled: true
+  labels:
+    nodePool: restful
