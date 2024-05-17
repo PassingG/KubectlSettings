@@ -21,11 +21,11 @@ spec:
     spec:
       imagePullSecrets:
         - name: regcred
-      {{- if .Values.nodeSelector.enabled }}
-        {{- range $key, $value := .Values.nodeSelector.labels }}
+      {{ if .Values.nodeSelector.enabled }}
+        {{ range $key, $value := .Values.nodeSelector.labels }}
         {{ $key }}: {{ $value }}
-        {{- end }}
-      {{- end }}
+        {{ end }}
+      {{ end }}
       containers:
         - name: gts-front-end
           imagePullPolicy: Always
@@ -65,11 +65,11 @@ spec:
     spec:
       imagePullSecrets:
         - name: regcred
-      {{- if .Values.nodeSelector.enabled }}
-        {{- range $key, $value := .Values.nodeSelector.labels }}
+      {{ if .Values.nodeSelector.enabled }}
+        {{ range $key, $value := .Values.nodeSelector.labels }}
         {{ $key }}: {{ $value }}
-        {{- end }}
-      {{- end }}
+        {{ end }}
+      {{ end }}
       containers:
         - name: gts-match-function
           imagePullPolicy: Always
@@ -106,11 +106,11 @@ spec:
     spec:
       imagePullSecrets:
         - name: regcred
-      {{- if .Values.nodeSelector.enabled }}
-        {{- range $key, $value := .Values.nodeSelector.labels }}
+      {{ if .Values.nodeSelector.enabled }}
+        {{ range $key, $value := .Values.nodeSelector.labels }}
         {{ $key }}: {{ $value }}
-        {{- end }}
-      {{- end }}
+        {{ end }}
+      {{ end }}
       containers:
         - name: gts-director
           imagePullPolicy: Always
