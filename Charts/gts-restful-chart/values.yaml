@@ -22,3 +22,6 @@ serviceAccount:
 
 ingress:
   enabled: false
+  
+rabbitMQ:
+  url: "amqp://user:rabbit20221212!@rabbitmq.gts-lobby-server.svc.cluster.local:5672"
