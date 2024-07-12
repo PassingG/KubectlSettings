@@ -25,3 +25,6 @@ ingress:
   
 rabbitMQ:
   url: "amqp://user:rabbit20221212!@rabbitmq.gts-lobby-server.svc.cluster.local:5672"
+  
+s3Data:
+  url: "https://gts-live-server.s3.ap-northeast-2.amazonaws.com"

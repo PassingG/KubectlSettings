@@ -48,6 +48,8 @@ spec:
                   key: redis-password
             - name: RABBITMQ_URL
               value: "{{ .Values.rabbitMQ.url }}"
+            - name: S3_DATA_URL
+              value: "{{ .Values.s3Data.url }}"
 ---
 # socket-server
 apiVersion: apps/v1
@@ -117,6 +119,8 @@ spec:
                 secretKeyRef:
                   name: redis-secret
                   key: redis-password
+           - name: S3_DATA_URL
+             value: "{{ .Values.s3Data.url }}"
       volumes:
         - name: kubeconfig-volume
           secret:
