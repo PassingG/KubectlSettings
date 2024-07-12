@@ -119,8 +119,8 @@ spec:
                 secretKeyRef:
                   name: redis-secret
                   key: redis-password
-           - name: S3_DATA_URL
-             value: "{{ .Values.s3Data.url }}"
+            - name: S3_DATA_URL
+              value: "{{ .Values.s3Data.url }}"
       volumes:
         - name: kubeconfig-volume
           secret:
