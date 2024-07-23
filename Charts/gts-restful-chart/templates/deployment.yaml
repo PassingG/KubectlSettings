@@ -50,6 +50,10 @@ spec:
               value: "{{ .Values.rabbitMQ.url }}"
             - name: S3_DATA_URL
               value: "{{ .Values.s3Data.url }}"
+            - name: DB_HOST_PROD
+              value: "{{ .Values.dbInfo.hostUrl }}"
+            - name: DB_PASSWORD_PROD
+              value: "{{ .Values.dbInfo.password }}"
 ---
 # socket-server
 apiVersion: apps/v1

@@ -28,3 +28,7 @@ rabbitMQ:
   
 s3Data:
   url: "https://gts-live-server.s3.ap-northeast-2.amazonaws.com"
+  
+dbInfo:
+  hostUrl: "gts-korea-test.mysql.database.azure.com"
+  password: ""
