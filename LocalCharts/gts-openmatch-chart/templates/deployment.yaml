@@ -1,0 +1,131 @@
+# Front End Component
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gts-front-end
+  namespace: open-match
+  labels:
+    app: gts-front-end
+    component: frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gts-front-end
+      component: frontend
+  template:
+    metadata:
+      labels:
+        app: gts-front-end
+        component: frontend
+    spec:
+      imagePullSecrets:
+        - name: regcred
+      {{- if .Values.nodeSelector.enabled }}
+      nodeSelector:
+        {{- range $key, $value := .Values.nodeSelector.labels }}
+        {{ $key }}: {{ $value }}
+        {{- end }}
+      {{- end }}
+      containers:
+        - name: gts-front-end
+          imagePullPolicy: Always
+          image: "{{ .Values.frontEndImage.repository }}:{{ .Values.gameVersion }}"
+          resources:
+            limits:
+              memory: "500Mi"
+            requests:
+              cpu: "500m"
+              memory: "500Mi"
+          env:
+            - name: LOBBY_SERVER_HOST
+              value: "{{ .Values.lobbyServer.host }}"
+            - name: LOBBY_SERVER_PORT
+              value: "{{ .Values.lobbyServer.port }}"
+---
+# Match Function component
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gts-match-function
+  namespace: open-match
+  labels:
+    app: gts-match-function
+    component: matchfunction
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gts-match-function
+      component: matchfunction
+  template:
+    metadata:
+      labels:
+        app: gts-match-function
+        component: matchfunction
+    spec:
+      imagePullSecrets:
+        - name: regcred
+      {{- if .Values.nodeSelector.enabled }}
+      nodeSelector:
+        {{- range $key, $value := .Values.nodeSelector.labels }}
+        {{ $key }}: {{ $value }}
+        {{- end }}
+      {{- end }}
+      containers:
+        - name: gts-match-function
+          imagePullPolicy: Always
+          image: "{{ .Values.matchFunctionImage.repository }}:{{ .Values.gameVersion }}"
+          resources:
+            limits:
+              memory: "500Mi"
+            requests:
+              cpu: "500m"
+              memory: "500Mi"
+          env:
+            - name: LOBBY_SERVER_HOST
+              value: "{{ .Values.lobbyServer.host }}"
+            - name: LOBBY_SERVER_PORT
+              value: "{{ .Values.lobbyServer.port }}"
+---
+# Director component
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gts-director
+  namespace: open-match
+  labels:
+    app: gts-director
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gts-director
+  template:
+    metadata:
+      labels:
+        app: gts-director
+    spec:
+      imagePullSecrets:
+        - name: regcred
+      {{- if .Values.nodeSelector.enabled }}
+      nodeSelector:
+        {{- range $key, $value := .Values.nodeSelector.labels }}
+        {{ $key }}: {{ $value }}
+        {{- end }}
+      {{- end }}
+      containers:
+        - name: gts-director
+          imagePullPolicy: Always
+          image: "{{ .Values.matchDirectorImage.repository }}:{{ .Values.gameVersion }}"
+          resources:
+            limits:
+              memory: "500Mi"
+            requests:
+              cpu: "500m"
+              memory: "500Mi"
+          env:
+            - name: LOBBY_SERVER_HOST
+              value: "{{ .Values.lobbyServer.host }}"
+            - name: LOBBY_SERVER_PORT
+              value: "{{ .Values.lobbyServer.port }}"

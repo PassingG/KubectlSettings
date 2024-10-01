@@ -1,0 +1,155 @@
+# restful-server
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gts-restful
+  namespace: gts-lobby-server
+  labels:
+    app: gts-restful
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gts-restful
+  template:
+    metadata:
+      labels:
+        app: gts-restful
+    spec:
+      imagePullSecrets:
+        - name: regcred
+      {{- if .Values.resources.enabled }}
+      nodeSelector:
+        nodePool: restful
+      {{- end }}
+      containers:
+        - name: gts-restful
+          image: "{{ .Values.restfulImage.repository }}:{{ .Values.gameVersion }}"
+          imagePullPolicy: "{{ .Values.restfulImage.imagePolicy }}"
+          volumeMounts:
+            - name: dataconfig-volume
+              mountPath: "/app/config"
+              readOnly: true
+          {{- if .Values.resources.enabled }}
+          resources:
+            requests:
+              cpu: "500m"
+              memory: "1.5Gi"
+          {{- end }}
+          env:
+            - name: NODE_ENV
+              value: prod
+            - name: VERSION
+              value: "{{ .Values.gameVersion }}"
+            - name: REDIS_PRIVATE_HOST
+              value: "{{ .Values.redisInfo.redisPrivateHost }}"
+            - name: REDIS_PUBLIC_HOST
+              value: "{{ .Values.redisInfo.redisPublicHost }}"
+            - name: REDIS_PORT
+              value: "{{ .Values.redisInfo.redisPublicPort }}"
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: redis-secret
+                  key: redis-password
+            - name: RABBITMQ_URL
+              value: "{{ .Values.rabbitMQ.url }}"
+            - name: S3_DATA_URL
+              value: "{{ .Values.s3Data.url }}"
+            - name: DB_USERNAME_PROD
+              value: "{{ .Values.dbInfo.userName }}"
+            - name: DB_HOST_PROD
+              value: "{{ .Values.dbInfo.hostUrl }}"
+            - name: DB_PASSWORD_PROD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-lobby-server
+                  key: mysql-root-password
+            - name: BUILD_ENV
+              value: "{{ .Values.buildEnv }}"
+      volumes:
+        - name: dataconfig-volume
+          configMap:
+            name: data-config
+---
+# socket-server
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gts-socket
+  namespace: gts-lobby-server
+  labels:
+    app: gts-socket
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gts-socket
+  template:
+    metadata:
+      labels:
+        app: gts-socket
+    spec:
+      imagePullSecrets:
+        - name: regcred
+      {{- if .Values.resources.enabled }}
+      nodeSelector:
+        nodePool: restful
+      {{- end }}
+      containers:
+        - name: gts-socket
+          image: "{{ .Values.socketImage.repository }}:{{ .Values.gameVersion }}"
+          imagePullPolicy: "{{ .Values.socketImage.imagePolicy }}"
+          volumeMounts:
+            - name: kubeconfig-volume
+              mountPath: "/etc/kubeconfig"
+              readOnly: true
+          {{- if .Values.resources.enabled }}
+          resources:
+            requests:
+              cpu: "500m"
+              memory: "1.5Gi"
+          {{- end }}
+          env:
+            - name: NODE_ENV
+              value: prod
+            - name: VERSION
+              value: "{{ .Values.gameVersion }}"
+            - name: DEPLOYMENT_LIFETIME
+              value: "{{ .Values.deploymentLifeTime }}"
+            - name: REDIS_PRIVATE_HOST
+              value: "{{ .Values.redisInfo.redisPrivateHost }}"
+            - name: REDIS_PUBLIC_HOST
+              value: "{{ .Values.redisInfo.redisPublicHost }}"
+            - name: REDIS_PRIVATE_PORT
+              value: "{{ .Values.redisInfo.redisPrivatePort }}"
+            - name: REDIS_PUBLIC_PORT
+              value: "{{ .Values.redisInfo.redisPublicPort }}"
+            - name: MATCHMAKING_URL
+              value: "http://gts-front-end.open-match.svc.cluster.local:51504"
+            - name: LOBBYSERVER_URL
+              value: "http://my-restful-service.gts-lobby-server.svc.cluster.local"
+            - name: AZURE_RESOURCE_GROUP
+              value: "{{ .Values.azureInfo.resourceGroup }}"
+            - name: AZURE_KUBE_NAME
+              value: "{{ .Values.azureInfo.kubeName }}"
+            - name: ACCESS_INFOS_SECRETKEY
+              valueFrom:
+                secretKeyRef:
+                  name: lobby-server-secret
+                  key: lobby-server-password
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: redis-secret
+                  key: redis-password
+            - name: S3_DATA_URL
+              value: "{{ .Values.s3Data.url }}"
+            - name: RABBITMQ_URL
+              value: "{{ .Values.rabbitMQ.url }}"
+            - name: BUILD_ENV
+              value: "{{ .Values.buildEnv }}"
+      volumes:
+        - name: kubeconfig-volume
+          secret:
+            secretName: kubeconfig-secret

@@ -1,0 +1,25 @@
+gameVersion: "0.15.0.1"
+
+lobbyServer:
+  host: "http://my-socket-service.gts-lobby-server.svc.cluster.local"
+  port: -1
+
+frontEndImage:
+  repository: "408181147136.dkr.ecr.ap-northeast-2.amazonaws.com/sandyfloor/gts/matchfrontend"
+
+matchFunctionImage:
+  repository: "408181147136.dkr.ecr.ap-northeast-2.amazonaws.com/sandyfloor/gts/matchfunction"
+  
+matchDirectorImage:
+  repository: "408181147136.dkr.ecr.ap-northeast-2.amazonaws.com/sandyfloor/gts/matchdirector"
+  
+serviceAccount:
+  create: false
+
+ingress:
+  enabled: false
+  
+nodeSelector:
+  enabled: true
+  labels:
+    nodePool: restful

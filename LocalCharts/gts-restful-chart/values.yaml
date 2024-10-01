@@ -1,0 +1,41 @@
+gameVersion: "0.15.2.6"
+deploymentLifeTime: 20
+buildEnv: "SERVER"
+
+restfulImage:
+  repository: "408181147136.dkr.ecr.ap-northeast-2.amazonaws.com/sandyfloor/gts/restful"
+  imagePolicy: "Always"
+
+socketImage:
+  repository: "408181147136.dkr.ecr.ap-northeast-2.amazonaws.com/sandyfloor/gts/socket"
+  imagePolicy: "Always"
+  
+redisInfo:
+  redisPrivateHost: "sandyfloor-gts-test.privatelink.redis.cache.windows.net"
+  redisPublicHost: "sandyfloor-gts-test.redis.cache.windows.net"
+  redisPrivatePort: "6380"
+  redisPublicPort: "6380"
+
+azureInfo:
+  resourceGroup: "GTS-Korea-Test"
+  kubeName: "GTS-TestServer-Ingame"
+
+serviceAccount:
+  create: false
+
+ingress:
+  enabled: false
+  
+rabbitMQ:
+  url: "amqp://user:rabbit20221212!@rabbitmq.gts-lobby-server.svc.cluster.local:5672"
+  
+s3Data:
+  url: "https://gts-live-server.s3.ap-northeast-2.amazonaws.com"
+  
+dbInfo:
+  userName: "sandyfloor"
+  hostUrl: "gts-korea-test.mysql.database.azure.com"
+  password: ""
+  
+resources:
+  enabled: true
