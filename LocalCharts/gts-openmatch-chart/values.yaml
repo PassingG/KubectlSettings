@@ -23,3 +23,6 @@ nodeSelector:
   enabled: true
   labels:
     nodePool: restful
+    
+resources:
+  enabled: true

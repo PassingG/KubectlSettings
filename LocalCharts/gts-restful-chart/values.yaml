@@ -21,11 +21,25 @@ azureInfo:
   kubeName: "GTS-TestServer-Ingame"
 
 serviceAccount:
-  create: false
+  # ServiceAccount를 생성할지 여부
+  create: true
+  # ServiceAccount에 추가할 주석
+  annotations: {}
+  # ServiceAccount 토큰을 자동으로 마운트할지 여부
+  automount: true
+
+rbac:
+  create: true
+  rules:
+    - apiGroups: [""]
+      resources: ["pods"]
+      verbs: ["get", "list", "watch"]
+    - apiGroups: ["apps"]
+      resources: ["deployments"]
+      verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
 
 ingress:
   enabled: false
-  
 rabbitMQ:
   url: "amqp://user:rabbit20221212!@rabbitmq.gts-lobby-server.svc.cluster.local:5672"
   
@@ -39,3 +53,43 @@ dbInfo:
   
 resources:
   enabled: true
+
+  
+#
+#networkPolicy:
+#  enabled: true
+#  egressCidr: "0.0.0.0/0"
+#
+#ingress:
+#  enabled: true
+#  className: "nginx"
+#  annotations:
+#    kubernetes.io/ingress.class: nginx
+#    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+#    # WebSocket 지원을 위한 설정
+#    nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
+#    nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
+#    # Socket.io 지원을 위한 추가 설정
+#    nginx.ingress.kubernetes.io/proxy-http-version: "1.1"
+#    nginx.ingress.kubernetes.io/proxy-buffering: "off"
+#    nginx.ingress.kubernetes.io/configuration-snippet: |
+#      proxy_set_header Upgrade $http_upgrade;
+#      proxy_set_header Connection "upgrade";
+#    nginx.ingress.kubernetes.io/enable-cors: "true"
+#    nginx.ingress.kubernetes.io/cors-allow-origin: "*"
+#    nginx.ingress.kubernetes.io/proxy-buffer-size: "64k"
+#    nginx.ingress.kubernetes.io/proxy-buffers-number: "8"
+#    nginx.ingress.kubernetes.io/upstream-keepalive-timeout: "600"
+#  hosts:
+#    - host: gts.local
+#      paths:
+#        - path: /
+#          pathType: Prefix
+#          serviceName: my-restful-service
+#          servicePort: 80
+#    - host: gts-socket.local
+#      paths:
+#        - path: /
+#          pathType: Prefix
+#          serviceName: my-socket-service
+#          servicePort: 9001

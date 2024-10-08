@@ -1,0 +1,25 @@
+{{- if .Values.networkPolicy.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: {{ include "gts-restful-chart.fullname" . }}-ingress
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "gts-restful-chart.labels" . | nindent 4 }}
+spec:
+  podSelector:
+    matchLabels:
+      {{- include "gts-restful-chart.selectorLabels" . | nindent 6 }}
+  ingress:
+    - from:
+        - namespaceSelector: {}
+      ports:
+        - protocol: TCP
+          port: 80
+        - protocol: TCP
+          port: 443
+  egress:
+    - to:
+        - ipBlock:
+            cidr: {{ .Values.networkPolicy.egressCidr | default "0.0.0.0/0" }}
+{{- end }}

@@ -21,7 +21,7 @@ spec:
     spec:
       imagePullSecrets:
         - name: regcred
-      {{- if .Values.nodeSelector.enabled }}
+      {{- if .Values.resources.enabled }}
       nodeSelector:
         {{- range $key, $value := .Values.nodeSelector.labels }}
         {{ $key }}: {{ $value }}
@@ -31,12 +31,14 @@ spec:
         - name: gts-front-end
           imagePullPolicy: Always
           image: "{{ .Values.frontEndImage.repository }}:{{ .Values.gameVersion }}"
+          {{- if .Values.resources.enabled }}
           resources:
             limits:
               memory: "500Mi"
             requests:
               cpu: "500m"
               memory: "500Mi"
+          {{- end }}
           env:
             - name: LOBBY_SERVER_HOST
               value: "{{ .Values.lobbyServer.host }}"
@@ -66,7 +68,7 @@ spec:
     spec:
       imagePullSecrets:
         - name: regcred
-      {{- if .Values.nodeSelector.enabled }}
+      {{- if .Values.resources.enabled }}
       nodeSelector:
         {{- range $key, $value := .Values.nodeSelector.labels }}
         {{ $key }}: {{ $value }}
@@ -76,12 +78,14 @@ spec:
         - name: gts-match-function
           imagePullPolicy: Always
           image: "{{ .Values.matchFunctionImage.repository }}:{{ .Values.gameVersion }}"
+          {{- if .Values.resources.enabled }}
           resources:
             limits:
               memory: "500Mi"
             requests:
               cpu: "500m"
               memory: "500Mi"
+          {{- end }}
           env:
             - name: LOBBY_SERVER_HOST
               value: "{{ .Values.lobbyServer.host }}"
@@ -108,7 +112,7 @@ spec:
     spec:
       imagePullSecrets:
         - name: regcred
-      {{- if .Values.nodeSelector.enabled }}
+      {{- if .Values.resources.enabled }}
       nodeSelector:
         {{- range $key, $value := .Values.nodeSelector.labels }}
         {{ $key }}: {{ $value }}
@@ -118,12 +122,14 @@ spec:
         - name: gts-director
           imagePullPolicy: Always
           image: "{{ .Values.matchDirectorImage.repository }}:{{ .Values.gameVersion }}"
+          {{- if .Values.resources.enabled }}
           resources:
             limits:
               memory: "500Mi"
             requests:
               cpu: "500m"
               memory: "500Mi"
+          {{- end }}
           env:
             - name: LOBBY_SERVER_HOST
               value: "{{ .Values.lobbyServer.host }}"

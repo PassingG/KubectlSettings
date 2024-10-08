@@ -96,6 +96,7 @@ spec:
       nodeSelector:
         nodePool: restful
       {{- end }}
+      serviceAccountName: gts-socket-service-account
       containers:
         - name: gts-socket
           image: "{{ .Values.socketImage.repository }}:{{ .Values.gameVersion }}"
@@ -103,6 +104,9 @@ spec:
           volumeMounts:
             - name: kubeconfig-volume
               mountPath: "/etc/kubeconfig"
+              readOnly: true
+            - name: dataconfig-volume
+              mountPath: "/app/config"
               readOnly: true
           {{- if .Values.resources.enabled }}
           resources:
@@ -153,3 +157,6 @@ spec:
         - name: kubeconfig-volume
           secret:
             secretName: kubeconfig-secret
+        - name: dataconfig-volume
+          configMap:
+            name: data-config
