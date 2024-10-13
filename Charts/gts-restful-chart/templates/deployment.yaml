@@ -52,6 +52,8 @@ spec:
               value: "{{ .Values.dbInfo.hostUrl }}"
             - name: DB_PASSWORD_PROD
               value: "{{ .Values.dbInfo.password }}"
+            - name: BUILD_ENV
+              value: "SERVER"
 ---
 # socket-server
 apiVersion: apps/v1
@@ -123,6 +125,8 @@ spec:
               value: "{{ .Values.s3Data.url }}"
             - name: RABBITMQ_URL
               value: "{{ .Values.rabbitMQ.url }}"
+            - name: BUILD_ENV
+              value: "SERVER"
       volumes:
         - name: kubeconfig-volume
           secret:
