@@ -7,7 +7,12 @@ metadata:
   labels:
     app: gts-restful
 spec:
-  replicas: 1
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1        # 최대 1개의 새 파드 추가 허용
+      maxUnavailable: 0  # 사용 불가능한 파드 허용하지 않음
   selector:
     matchLabels:
       app: gts-restful
@@ -28,6 +33,18 @@ spec:
             requests:
               cpu: "500m"
               memory: "1.5Gi"
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 80
+            initialDelaySeconds: 15
+            periodSeconds: 20
           env:
             - name: NODE_ENV
               value: prod
@@ -64,7 +81,12 @@ metadata:
   labels:
     app: gts-socket
 spec:
-  replicas: 1
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1        # 최대 1개의 새 파드 추가 허용
+      maxUnavailable: 0  # 사용 불가능한 파드 허용하지 않음
   selector:
     matchLabels:
       app: gts-socket
@@ -81,6 +103,18 @@ spec:
         - name: gts-socket
           image: "{{ .Values.socketImage.repository }}:{{ .Values.gameVersion }}"
           imagePullPolicy: Always
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 80
+            initialDelaySeconds: 15
+            periodSeconds: 20
           volumeMounts:
             - name: kubeconfig-volume
               mountPath: "/etc/kubeconfig"
